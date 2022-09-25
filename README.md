@@ -2,6 +2,8 @@
 
 This repository shows how to build Machine Learning pipeline for a vision model (TensorFlow) from 🤗 Transformers using the TensorFlow Ecosystem. In particular, we use TensorFlow Extended(TFX), and there are TensorFlow Data Validation(TFDV), Transform(TFT), Model Analysis(TFMA), and Serving(TF Serving) besides TensorFlow itself internally involved.
 
+NOTE: This is a follow-up projects of "[Deploying Vision Models (TensorFlow) from 🤗 Transformers](https://github.com/sayakpaul/deploy-hf-tf-vision-models)" which shows how to deploy ViT model locally, on kubernetes, and on a fully managed service Vertex AI.
+
 We will show how to build ML pipeline with TFX in a step-by-step manner:
 1. **Basic**: as the first step, we show how to build ML pipeline with the most basic components, which are `ExampleGen`, `Trainer`, and `Pusher`. These components are responsible for injecting raw dataset into the ML pipeline, training a TensorFlow model, and deploying a trained model.
 
