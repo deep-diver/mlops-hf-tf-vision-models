@@ -7,11 +7,9 @@ from tfx.proto import example_gen_pb2
 
 from tfx.components import ImportExampleGen
 from tfx.components import Trainer
-from tfx.components import Transform
 from tfx.components import Pusher
 from tfx.orchestration import pipeline
 from tfx.proto import example_gen_pb2
-from tfx.proto import trainer_pb2
 
 
 def create_pipeline(
