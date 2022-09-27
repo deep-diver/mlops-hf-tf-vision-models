@@ -23,8 +23,6 @@ def run():
             modules={
                 "training_fn": configs.TRAINING_FN,
             },
-            train_args=tfx.proto.TrainArgs(num_steps=configs.TRAIN_NUM_STEPS),
-            eval_args=tfx.proto.EvalArgs(num_steps=configs.EVAL_NUM_STEPS),
             serving_model_dir=SERVING_MODEL_DIR,
             metadata_connection_config=tfx.orchestration.metadata.sqlite_metadata_connection_config(
                 METADATA_PATH
