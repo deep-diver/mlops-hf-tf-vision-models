@@ -1,4 +1,4 @@
-name: Trigger Training Pipeline
+name: CD / Basic
 
 on:
   workflow_dispatch:
