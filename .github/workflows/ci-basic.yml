@@ -125,6 +125,6 @@ jobs:
       if: steps.training-pipeline-change.outputs.src == 'true'    
       working-directory: 'basic'
       run: |
-        tfx pipeline update \
+        tfx pipeline create \
           --pipeline-path kubeflow_runner.py \
           --engine vertex
