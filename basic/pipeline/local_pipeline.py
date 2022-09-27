@@ -33,7 +33,7 @@ def create_pipeline(
 
     trainer = Trainer(
         run_fn=modules["training_fn"],
-        examples=example_gen.outputs["transformed_examples"],
+        examples=example_gen.outputs["examples"],
     )
     components.append(trainer)
 

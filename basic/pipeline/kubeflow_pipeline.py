@@ -41,7 +41,7 @@ def create_pipeline(
 
     trainer_args = {
         "run_fn": modules["training_fn"],
-        "examples": example_gen.outputs["transformed_examples"],
+        "examples": example_gen.outputs["examples"],
         "custom_config": ai_platform_training_args,
     }
     trainer = VertexTrainer(**trainer_args)
