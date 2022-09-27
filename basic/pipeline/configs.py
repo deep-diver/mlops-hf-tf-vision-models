@@ -24,7 +24,7 @@ PIPELINE_ROOT = os.path.join(OUTPUT_DIR, "tfx_pipeline_output", PIPELINE_NAME)
 
 DATA_PATH = "gs://beans-lowres/tfrecords/"
 
-TRAINING_FN = "models.train.run_fn"
+TRAINING_FN = "modules.train.run_fn"
 
 EXAMPLE_GEN_BEAM_ARGS = None
 
