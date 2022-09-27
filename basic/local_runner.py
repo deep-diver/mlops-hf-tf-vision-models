@@ -2,8 +2,6 @@ import os
 from absl import logging
 
 from tfx import v1 as tfx
-from tfx.orchestration.data_types import RuntimeParameter
-from tfx.orchestration import LocalDagRunner
 from pipeline import configs
 from pipeline import local_pipeline
 
@@ -16,7 +14,7 @@ METADATA_PATH = os.path.join(
 SERVING_MODEL_DIR = os.path.join(PIPELINE_ROOT, "serving_model")
 
 def run():
-    LocalDagRunner().run(
+    tfx.orchestration.LocalDagRunner().run(
         local_pipeline.create_pipeline(
             pipeline_name=configs.PIPELINE_NAME,
             pipeline_root=PIPELINE_ROOT,
