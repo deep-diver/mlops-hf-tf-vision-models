@@ -6,6 +6,7 @@ from .utils import INFO
 from .common import IMAGE_KEY, IMAGE_SHAPE_KEY, LABEL_KEY
 from .hyperparams import BATCH_SIZE
 
+
 def _parse_tfr(proto):
     feature_description = {
         IMAGE_KEY: tf.io.VarLenFeature(tf.float32),
@@ -14,24 +15,28 @@ def _parse_tfr(proto):
     }
 
     rec = tf.io.parse_single_example(proto, feature_description)
-    
+
     image_shape = tf.sparse.to_dense(rec[IMAGE_SHAPE_KEY])
     image = tf.reshape(tf.sparse.to_dense(rec[IMAGE_KEY]), image_shape)
-    
+
     label = tf.sparse.to_dense(rec[LABEL_KEY])
 
     return {IMAGE_KEY: image, LABEL_KEY: label}
 
+
 def _preprocess(example_batch):
     images = example_batch[IMAGE_KEY]
-    images = tf.transpose(images, perm=[0, 1, 2, 3]) # (batch_size, height, width, num_channels)
+    images = tf.transpose(
+        images, perm=[0, 1, 2, 3]
+    )  # (batch_size, height, width, num_channels)
     images = tf.image.resize(images, (224, 224))
     images = tf.transpose(images, perm=[0, 3, 1, 2])
 
     labels = example_batch[LABEL_KEY]
-    labels = tf.transpose(labels, perm=[0, 1]) # So, that TF can evaluation the shapes.
-    
+    labels = tf.transpose(labels, perm=[0, 1])  # So, that TF can evaluation the shapes.
+
     return {IMAGE_KEY: images, LABEL_KEY: labels}
+
 
 def input_fn(
     file_pattern: List[str],

@@ -6,4 +6,4 @@ CONCRETE_INPUT = "pixel_values"
 
 PRETRAIN_CHECKPOINT = "google/vit-base-patch16-224-in21k"
 
-LABELS = ['angular_leaf_spot', 'bean_rust', 'healthy']
+LABELS = ["angular_leaf_spot", "bean_rust", "healthy"]

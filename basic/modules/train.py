@@ -9,7 +9,6 @@ from .hyperparams import TRAIN_LENGTH, EVAL_LENGTH
 from .hyperparams import EPOCHS
 
 
-
 def run_fn(fn_args: FnArgs):
     train_dataset = input_fn(
         fn_args.train_files,

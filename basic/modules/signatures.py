@@ -6,6 +6,7 @@ from .common import CONCRETE_INPUT
 
 feature_extractor = ViTFeatureExtractor.from_pretrained(PRETRAIN_CHECKPOINT)
 
+
 def _normalize_img(
     img, mean=feature_extractor.image_mean, std=feature_extractor.image_std
 ):
@@ -36,9 +37,7 @@ def _preprocess_fn(string_input):
 
 def model_exporter(model: tf.keras.Model):
     m_call = tf.function(model.call).get_concrete_function(
-        tf.TensorSpec(
-            shape=[None, 3, 224, 224], dtype=tf.float32, name=CONCRETE_INPUT
-        )
+        tf.TensorSpec(shape=[None, 3, 224, 224], dtype=tf.float32, name=CONCRETE_INPUT)
     )
 
     @tf.function(input_signature=[tf.TensorSpec([None], tf.string)])

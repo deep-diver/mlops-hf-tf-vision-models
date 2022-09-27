@@ -13,6 +13,7 @@ METADATA_PATH = os.path.join(
 )
 SERVING_MODEL_DIR = os.path.join(PIPELINE_ROOT, "serving_model")
 
+
 def run():
     tfx.orchestration.LocalDagRunner().run(
         local_pipeline.create_pipeline(
