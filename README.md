@@ -19,3 +19,7 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
 - [ ] **Organizing as a standalone Application**: TBD
 
 - [ ] **GitHub Integration**: TBD
+
+## Acknowledgements
+
+We are thankful to the ML Developer Programs team at Google that provided GCP support.
