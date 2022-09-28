@@ -3,7 +3,7 @@ import tensorflow_model_analysis as tfma
 import tfx.extensions.google_cloud_ai_platform.constants as vertex_const
 import tfx.extensions.google_cloud_ai_platform.trainer.executor as vertex_training_const
 
-PIPELINE_NAME = "vit-e2e-pipeline-intermediate"
+PIPELINE_NAME = "vit-e2e-pipeline-advanced-part1"
 
 try:
     import google.auth  # pylint: disable=g-import-not-at-top  # pytype: disable=import-error
