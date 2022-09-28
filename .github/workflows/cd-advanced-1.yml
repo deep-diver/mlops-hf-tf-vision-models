@@ -1,0 +1,114 @@
+name: CD / Advanced Part1
+
+on:
+  workflow_dispatch:
+    inputs:
+      gcpProject:
+        description: 'GCP Project for Vertex AI Pipeline'
+        required: true
+        type: choice
+        options:
+          - gcp-ml-172005
+        default: 'gcp-ml-172005'
+      gcpRegion:
+        description: 'GCP Region for Vertex AI Pipeline'
+        required: true
+        type: choice
+        options:
+          - us-central1
+        default: 'us-central1'
+      fullResolutionData:
+        description: 'use the full resolution data, dataflow'
+        required: true
+        type: boolean
+        default: false
+    
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+  
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - uses: actions/checkout@v2.4.2
+    
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: 'Install required Python packages'
+      run: |
+        pip install -r requirements.txt
+
+    
+    - name: 'Replace GCP Project Strings'
+      id: prepare-step
+      run: |
+        gcp_key=`echo ${{ github.event.inputs.gcpProject }} | sed -e "s/-/_/g"`
+        echo "::set-output name=GCP_SECRET_KEY::$gcp_key"
+    
+    - name: 'Replace GCP Project in config.py'
+      working-directory: 'advanced_part1'
+      run: |
+        sed -i 's/gcp-ml-172005/${{ github.event.inputs.gcpProject }}/g' pipeline/configs.py
+    
+    - name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0'
+      env:
+        GCP_SECRET_KEY: ${{ steps.prepare-step.outputs.GCP_SECRET_KEY }}
+      with:
+        credentials_json: '${{ secrets[env.GCP_SECRET_KEY] }}'
+        
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v0'
+
+    - name: 'Set up docker auth in gcloud'
+      run: |
+        gcloud --quiet auth configure-docker
+
+    - name: 'Replace Access Token Placeholder'
+      working-directory: 'advanced_part1'
+      env: 
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+        HF_ACCESS_TOKEN: ${{ secrets.HF_ACCESS_TOKEN }}
+      run: |
+        envsubst '$GH_ACCESS_TOKEN, $HF_ACCESS_TOKEN' < pipeline/configs.py > pipeline/configs_tmp.py
+        mv pipeline/configs_tmp.py pipeline/configs.py
+        cat pipeline/configs.py
+
+    - name: 'Create TFX Training Pipeline'
+      working-directory: 'advanced_part1'
+      env:
+        FULL_RES_DATA: ${{ github.event.inputs.fullResolutionData }}
+      run: |
+        FULL_RES_DATA=${{ env.FULL_RES_DATA }} \
+        tfx pipeline create \
+          --pipeline-path kubeflow_runner.py \
+          --engine vertex \
+          --build-image
+
+    - name: 'Compile TFX Training Pipeline'
+      working-directory: 'advanced_part1'
+      env:
+        FULL_RES_DATA: ${{ github.event.inputs.fullResolutionData }}      
+      run: |
+        FULL_RES_DATA=${{ env.FULL_RES_DATA }} \
+        tfx pipeline compile \
+          --pipeline-path kubeflow_runner.py \
+          --engine vertex
+          
+    - name: 'Run TFX Training Pipeline'
+      working-directory: 'advanced_part1'
+      env:
+        FULL_RES_DATA: ${{ github.event.inputs.fullResolutionData }}      
+      run: |
+          FULL_RES_DATA=${{ env.FULL_RES_DATA }} \
+          tfx run create \
+            --engine vertex \
+            --pipeline-name vit-e2e-pipeline-advanced-part1 \
+            --project ${{ github.event.inputs.gcpProject }} \
+            --region ${{ github.event.inputs.gcpRegion }}
+            
+    
