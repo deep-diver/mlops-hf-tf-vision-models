@@ -16,7 +16,9 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
 
 - [ ] **Intermediate**: as the second step, we show how to extend the ML pipeline from the first step by adding more components, which are `SchemaGen`, `StatisticsGen`, and `Transform`. These components are responsible for analyzing the structures of the dataset, analyzing the statistical traits of the features in the dataset, and data pre-processing.
 
-- [ ] **Advanced**: as the third setp, we show how to extend the ML pipeline from the second step by adding more components, which are `Resolver` and `Evaluator`. These components are responsible for importing existing Artifacts (such as previously trained model) and comparing the performance between two models (one from the `Resolver` and one from the current pipeline run).
+- [ ] **Advanced Part 1**: as the third step, we show how to extend the ML pipeline from the second step by adding more components, which are `Resolver` and `Evaluator`. These components are responsible for importing existing Artifacts (such as previously trained model) and comparing the performance between two models (one from the `Resolver` and one from the current pipeline run).
+
+- [ ] **Advanced Part 2**: as the fourth step, we show how to extend the ML pipeline from the third step by adding one more additional component, `Tuner`. This component is responsible for running a set of experiments with different sets of hyperparameters with fewer epochs, and the found best hyperparameter combination will be passed to the `Trainer`, and `Trainer` will train the model longer time with that hyperparameter combinations as the starting point.
 
 - [ ] **🤗 Hub Integration**: in this optional step, we show how to use custom TFX components for 🤗 Hub. In particular, we use `HFModelPusher` to push currently trained model to 🤗 Model Hub and `HFSpacePusher` to automatically deploy Gradio application to 🤗 Space Hub.
 
