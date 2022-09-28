@@ -10,9 +10,9 @@ from .hyperparams import BATCH_SIZE
 
 def _parse_tfr(proto):
     feature_description = {
-        IMAGE_TFREC_KEY:        tf.io.VarLenFeature(tf.float32),
-        IMAGE_SHAPE_TFREC_KEY:  tf.io.VarLenFeature(tf.int64),
-        LABEL_TFREC_KEY:        tf.io.VarLenFeature(tf.int64),
+        IMAGE_TFREC_KEY: tf.io.VarLenFeature(tf.float32),
+        IMAGE_SHAPE_TFREC_KEY: tf.io.VarLenFeature(tf.int64),
+        LABEL_TFREC_KEY: tf.io.VarLenFeature(tf.int64),
     }
 
     rec = tf.io.parse_single_example(proto, feature_description)

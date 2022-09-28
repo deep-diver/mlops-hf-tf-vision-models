@@ -10,6 +10,7 @@ from .utils import INFO
 from .common import LABEL_MODEL_KEY
 from .hyperparams import BATCH_SIZE
 
+
 def input_fn(
     file_pattern: List[str],
     data_accessor: DataAccessor,

@@ -23,7 +23,7 @@ def run():
             schema_path=configs.SCHEMA_PATH,
             modules={
                 "training_fn": configs.TRAINING_FN,
-                "preprocessing_fn": configs.PREPROCESSING_FN
+                "preprocessing_fn": configs.PREPROCESSING_FN,
             },
             serving_model_dir=SERVING_MODEL_DIR,
             metadata_connection_config=tfx.orchestration.metadata.sqlite_metadata_connection_config(

@@ -44,22 +44,22 @@ def create_pipeline(
         example_gen.with_beam_pipeline_args(example_gen_beam_args)
     components.append(example_gen)
 
-    statistics_gen = StatisticsGen(examples=example_gen.outputs['examples'])
+    statistics_gen = StatisticsGen(examples=example_gen.outputs["examples"])
     components.append(statistics_gen)
 
     schema_gen = tfx.components.ImportSchemaGen(schema_file=schema_path)
     components.append(schema_gen)
 
     example_validator = ExampleValidator(
-        statistics=statistics_gen.outputs['statistics'],
-        schema=schema_gen.outputs['schema']
+        statistics=statistics_gen.outputs["statistics"],
+        schema=schema_gen.outputs["schema"],
     )
     components.append(example_validator)
 
     transform_args = {
-        "examples": example_gen.outputs['examples'],
-        "schema": schema_gen.outputs['schema'],
-        "preprocessing_fn": modules["preprocessing_fn"]
+        "examples": example_gen.outputs["examples"],
+        "schema": schema_gen.outputs["schema"],
+        "preprocessing_fn": modules["preprocessing_fn"],
     }
     transform = Transform(**transform_args)
     if transform_beam_args is not None:

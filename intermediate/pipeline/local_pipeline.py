@@ -35,22 +35,22 @@ def create_pipeline(
     example_gen = ImportExampleGen(input_base=data_path, input_config=input_config)
     components.append(example_gen)
 
-    statistics_gen = StatisticsGen(examples=example_gen.outputs['examples'])
+    statistics_gen = StatisticsGen(examples=example_gen.outputs["examples"])
     components.append(statistics_gen)
 
     schema_gen = tfx.components.ImportSchemaGen(schema_file=schema_path)
     components.append(schema_gen)
 
     example_validator = ExampleValidator(
-        statistics=statistics_gen.outputs['statistics'],
-        schema=schema_gen.outputs['schema']
+        statistics=statistics_gen.outputs["statistics"],
+        schema=schema_gen.outputs["schema"],
     )
     components.append(example_validator)
 
     transform_args = {
-        "examples": example_gen.outputs['examples'],
-        "schema": schema_gen.outputs['schema'],
-        "preprocessing_fn": modules["preprocessing_fn"]
+        "examples": example_gen.outputs["examples"],
+        "schema": schema_gen.outputs["schema"],
+        "preprocessing_fn": modules["preprocessing_fn"],
     }
     transform = Transform(**transform_args)
     components.append(transform)
@@ -61,7 +61,7 @@ def create_pipeline(
         "transform_graph": transform.outputs["transform_graph"],
         "schema": schema_gen.outputs["schema"],
     }
-    trainer = Trainer(**trainer_args)    
+    trainer = Trainer(**trainer_args)
     components.append(trainer)
 
     pusher_args = {

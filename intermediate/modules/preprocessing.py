@@ -3,6 +3,7 @@ from .common import IMAGE_TFREC_KEY, LABEL_TFREC_KEY
 from .common import IMAGE_MODEL_KEY, LABEL_MODEL_KEY
 from .hyperparams import INPUT_IMG_SIZE
 
+
 def preprocessing_fn(inputs):
     """tf.transform's callback function for preprocessing inputs.
     Args:
