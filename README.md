@@ -1,6 +1,6 @@
 ![Python](https://img.shields.io/badge/python-3.9-blue.svg) [![TFX](https://img.shields.io/badge/TFX-1.9.1-orange)](https://www.tensorflow.org/tfx)
 
-# MLOps with Vision Models (TensorFlow) from 🤗 Transformers
+# MLOps for Vision Models (TensorFlow) from 🤗 Transformers with TensorFlow Extended (TFX)
 
 This repository shows how to build Machine Learning pipeline for a vision model (TensorFlow) from 🤗 Transformers using the TensorFlow Ecosystem. In particular, we use TensorFlow Extended(TFX), and there are TensorFlow Data Validation(TFDV), Transform(TFT), Model Analysis(TFMA), and Serving(TF Serving) besides TensorFlow itself internally involved.
 
@@ -16,6 +16,10 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
 
 - [X] **Intermediate** ( [![CI / Intermediate](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-intermediate.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-intermediate.yml) [![CD / Intermediate](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-intermediate.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-intermediate.yml) )
   - as the second step, we show how to extend the ML pipeline from the first step by adding more components, which are `SchemaGen`, `StatisticsGen`, and `Transform`. These components are responsible for analyzing the structures of the dataset, analyzing the statistical traits of the features in the dataset, and data pre-processing.
+  
+  <p align="center">
+    <img height="300px" src="https://i.ibb.co/pKh3y53/intermediate.png"/>
+  </p>
 
 - [ ] **Advanced Part 1**: as the third step, we show how to extend the ML pipeline from the second step by adding more components, which are `Resolver` and `Evaluator`. These components are responsible for importing existing Artifacts (such as previously trained model) and comparing the performance between two models (one from the `Resolver` and one from the current pipeline run).
 
