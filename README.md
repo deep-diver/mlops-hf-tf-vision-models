@@ -16,6 +16,10 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
 
 - [X] **Intermediate** ( [![CI / Intermediate](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-intermediate.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-intermediate.yml) [![CD / Intermediate](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-intermediate.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-intermediate.yml) )
   - as the second step, we show how to extend the ML pipeline from the first step by adding more components, which are `SchemaGen`, `StatisticsGen`, and `Transform`. These components are responsible for analyzing the structures of the dataset, analyzing the statistical traits of the features in the dataset, and data pre-processing.
+  
+  <p align="center">
+    <img height="300px" src="https://i.ibb.co/pKh3y53/intermediate.png"/>
+  </p>
 
 - [ ] **Advanced Part 1**: as the third step, we show how to extend the ML pipeline from the second step by adding more components, which are `Resolver` and `Evaluator`. These components are responsible for importing existing Artifacts (such as previously trained model) and comparing the performance between two models (one from the `Resolver` and one from the current pipeline run).
 
