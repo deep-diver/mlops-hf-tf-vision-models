@@ -1,6 +1,9 @@
-IMAGE_KEY = "pixel_values"
-IMAGE_SHAPE_KEY = "image_shape"
-LABEL_KEY = "labels"
+IMAGE_TFREC_KEY = "image"
+IMAGE_SHAPE_TFREC_KEY = "image_shape"
+LABEL_TFREC_KEY = "label"
+
+IMAGE_MODEL_KEY = "pixel_values"
+LABEL_MODEL_KEY = "labels"
 
 CONCRETE_INPUT = "pixel_values"
 

@@ -17,6 +17,8 @@ def build_model():
         id2label=id2label,
     )
 
+    model.layers[0].trainable=False
+
     loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
     model.compile(optimizer="adam", loss=loss, metrics=["accuracy"])
 
