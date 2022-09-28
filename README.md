@@ -24,6 +24,10 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
 - [X] **Advanced Part 1** ( [![CI / Advanced Part1](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-advanced-1.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-advanced-1.yml) [![CD / Advanced Part1](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-advanced-1.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-advanced-1.yml) )
   - as the third step, we show how to extend the ML pipeline from the second step by adding more components, which are `Resolver` and `Evaluator`. These components are responsible for importing existing Artifacts (such as previously trained model) and comparing the performance between two models (one from the `Resolver` and one from the current pipeline run).
 
+  <p align="center">
+    <img height="300px" src="https://i.ibb.co/F0hC9fF/Screen-Shot-2022-09-29-at-12-34-41-AM.png"/>
+  </p>
+
 - [ ] **Advanced Part 2**: as the fourth step, we show how to extend the ML pipeline from the third step by adding one more additional component, `Tuner`. This component is responsible for running a set of experiments with different sets of hyperparameters with fewer epochs, and the found best hyperparameter combination will be passed to the `Trainer`, and `Trainer` will train the model longer time with that hyperparameter combinations as the starting point.
 
 - [ ] **🤗 Hub Integration**: in this optional step, we show how to use custom TFX components for 🤗 Hub. In particular, we use `HFModelPusher` to push currently trained model to 🤗 Model Hub and `HFSpacePusher` to automatically deploy Gradio application to 🤗 Space Hub.
