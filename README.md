@@ -10,6 +10,10 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
 - [X] **Basic** ( [![CI / Basic](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-basic.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-basic.yml) [![CD / Basic](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-basic.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-basic.yml) )
   - as the first step, we show how to build ML pipeline with the most basic components, which are `ExampleGen`, `Trainer`, and `Pusher`. These components are responsible for injecting raw dataset into the ML pipeline, training a TensorFlow model, and deploying a trained model.
 
+  <p align="center">
+    <img height="300px" src="https://i.ibb.co/h24PB0F/basic.png"/>
+  </p>
+
 - [ ] **Intermediate**: as the second step, we show how to extend the ML pipeline from the first step by adding more components, which are `SchemaGen`, `StatisticsGen`, and `Transform`. These components are responsible for analyzing the structures of the dataset, analyzing the statistical traits of the features in the dataset, and data pre-processing.
 
 - [ ] **Advanced**: as the third setp, we show how to extend the ML pipeline from the second step by adding more components, which are `Resolver` and `Evaluator`. These components are responsible for importing existing Artifacts (such as previously trained model) and comparing the performance between two models (one from the `Resolver` and one from the current pipeline run).

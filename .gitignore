@@ -1,2 +1,5 @@
 *.tfrec
 notebooks/modules
+__pycache__/
+tfx_metadata/
+tfx_pipeline_output/
