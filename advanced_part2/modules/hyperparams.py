@@ -14,9 +14,9 @@ INPUT_IMG_SIZE = 224
 def get_hyperparameters(hyperparameters) -> keras_tuner.HyperParameters:
     hp = keras_tuner.HyperParameters()
 
-    for hyperparameter in hyperparameters:
-        hp.Choice(hyperparameter,
-                  hyperparameter["values"],
-                  default=hyperparameter["default"])
+    for hp in hyperparameters:
+        hp.Choice(hp,
+                  hyperparameters[hp]["values"],
+                  default=hyperparameters[hp]["default"])
 
     return hp
