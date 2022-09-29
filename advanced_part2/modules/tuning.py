@@ -11,10 +11,12 @@ from .hyperparams import TRAIN_LENGTH, EVAL_LENGTH
 from .hyperparams import get_hyperparameters
 
 def tuner_fn(fn_args: FnArgs) -> TunerFnResult:
+    hyperparameters = fn_args.custom_config['hyperparameters']
+
     tuner = keras_tuner.RandomSearch(
         build_model,
         max_trials=6,
-        hyperparameters=get_hyperparameters(),
+        hyperparameters=get_hyperparameters(hyperparameters),
         allow_new_entries=False,
         objective=keras_tuner.Objective("val_accuracy", "max"),
         directory=fn_args.working_dir,

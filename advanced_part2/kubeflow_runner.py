@@ -32,7 +32,7 @@ def run():
             ai_platform_tuner_args=configs.GCP_AI_PLATFORM_TUNER_ARGS,
             tuner_args=tuner_pb2.TuneArgs(
                 num_parallel_trials=configs.NUM_PARALLEL_TRIALS
-            ),            
+            ),
             ai_platform_serving_args=configs.GCP_AI_PLATFORM_SERVING_ARGS,
             example_gen_beam_args=configs.EXAMPLE_GEN_BEAM_ARGS,
             transform_beam_args=configs.TRANSFORM_BEAM_ARGS,

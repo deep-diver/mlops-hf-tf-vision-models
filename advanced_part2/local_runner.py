@@ -26,6 +26,7 @@ def run():
                 "preprocessing_fn": configs.PREPROCESSING_FN,
                 "tuner_fn": configs.TUNER_FN,
             },
+            hyperparameters=configs.HYPER_PARAMETERS,
             eval_configs=configs.EVAL_CONFIGS,
             serving_model_dir=SERVING_MODEL_DIR,
             metadata_connection_config=tfx.orchestration.metadata.sqlite_metadata_connection_config(
