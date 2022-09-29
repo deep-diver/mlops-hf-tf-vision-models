@@ -16,7 +16,7 @@ def get_hyperparameters(hyperparameters) -> keras_tuner.HyperParameters:
 
     for hyperparameter in hyperparameters:
         hp.Choice(hyperparameter,
-                  hyperparameter["value"],
+                  hyperparameter["values"],
                   default=hyperparameter["default"])
 
     return hp
