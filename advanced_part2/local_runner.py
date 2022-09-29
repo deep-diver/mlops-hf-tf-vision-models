@@ -24,7 +24,7 @@ def run():
             modules={
                 "training_fn": configs.TRAINING_FN,
                 "preprocessing_fn": configs.PREPROCESSING_FN,
-                "tuner_fn": configs.TUNER_LOCAL_FN,
+                "tuner_fn": configs.TUNER_FN,
             },
             eval_configs=configs.EVAL_CONFIGS,
             serving_model_dir=SERVING_MODEL_DIR,

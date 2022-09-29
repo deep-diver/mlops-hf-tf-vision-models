@@ -66,7 +66,7 @@ def create_pipeline(
     components.append(transform)
 
     tuner = Tuner(
-        tuner_fn=modules["training_fn"],
+        tuner_fn=modules["tuner_fn"],
         examples=transform.outputs["transformed_examples"],
         schema=schema_gen.outputs["schema"],
         transform_graph=transform.outputs["transform_graph"],

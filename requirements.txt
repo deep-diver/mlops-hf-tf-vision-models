@@ -3,4 +3,3 @@ kfp
 transformers
 pillow
 keras-tuner
-tensorflow-cloud

@@ -80,7 +80,7 @@ def create_pipeline(
     components.append(transform)
 
     tuner = VertexTuner(
-        tuner_fn=modules["cloud_tuner_fn"],
+        tuner_fn=modules["tuner_fn"],
         examples=transform.outputs["transformed_examples"],
         transform_graph=transform.outputs["transform_graph"],
         tune_args=tuner_args,

@@ -28,8 +28,7 @@ DATA_PATH = "gs://beans-lowres/tfrecords/"
 SCHEMA_PATH = "pipeline/schema.pbtxt"
 
 TRAINING_FN = "modules.train.run_fn"
-TUNER_LOCAL_FN = "modules.tuning_local.tuner_fn"
-TUNER_CLOUD_FN = "modules.tuning_cloud.tuner_fn"
+TUNER_FN = "modules.tuning.tuner_fn"
 PREPROCESSING_FN = "modules.preprocessing.preprocessing_fn"
 
 EXAMPLE_GEN_BEAM_ARGS = None
@@ -138,6 +137,7 @@ if fullres_data.lower() == "true":
         }
     ]
 
+NUM_PARALLEL_TRIALS = 3
 GCP_AI_PLATFORM_TUNER_ARGS = {
     vertex_const.ENABLE_VERTEX_KEY: True,
     vertex_const.VERTEX_REGION_KEY: GOOGLE_CLOUD_REGION,

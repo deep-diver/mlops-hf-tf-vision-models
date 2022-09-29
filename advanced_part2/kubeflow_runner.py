@@ -25,6 +25,7 @@ def run():
             modules={
                 "training_fn": configs.TRAINING_FN,
                 "preprocessing_fn": configs.PREPROCESSING_FN,
+                "tuner_fn": configs.TUNER_FN,
             },
             eval_configs=configs.EVAL_CONFIGS,
             ai_platform_training_args=configs.GCP_AI_PLATFORM_TRAINING_ARGS,
