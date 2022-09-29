@@ -1,3 +1,4 @@
+import keras_tuner
 import tensorflow_transform as tft
 from tfx.components.trainer.fn_args_utils import FnArgs
 
@@ -12,6 +13,8 @@ from .signatures import (
 from .hyperparams import TRAIN_BATCH_SIZE, EVAL_BATCH_SIZE
 from .hyperparams import TRAIN_LENGTH, EVAL_LENGTH
 from .hyperparams import EPOCHS
+
+from .utils import INFO
 
 
 def run_fn(fn_args: FnArgs):
@@ -33,7 +36,9 @@ def run_fn(fn_args: FnArgs):
         batch_size=EVAL_BATCH_SIZE,
     )
 
-    model = build_model()
+    hparams = keras_tuner.HyperParameters.from_config(fn_args.hyperparameters)
+    INFO(f"HyperParameters for training: {hparams.get_config()}")    
+    model = build_model(hparams)
 
     model.fit(
         train_dataset,

@@ -18,7 +18,7 @@ def tuner_fn(fn_args: FnArgs) -> TunerFnResult:
         allow_new_entries=False,
         objective=keras_tuner.Objective("val_accuracy", "max"),
         directory=fn_args.working_dir,
-        project_name="img_classification_tuning",
+        project_name="ViT MLOps Advanced Part2",
     )
 
     tf_transform_output = tft.TFTransformOutput(fn_args.transform_graph_path)
