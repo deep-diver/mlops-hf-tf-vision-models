@@ -12,11 +12,11 @@ EVAL_LENGTH = 128
 INPUT_IMG_SIZE = 224
 
 def get_hyperparameters(hyperparameters) -> keras_tuner.HyperParameters:
-    hp = keras_tuner.HyperParameters()
+    hp_set = keras_tuner.HyperParameters()
 
     for hp in hyperparameters:
-        hp.Choice(hp,
+        hp_set.Choice(hp,
                   hyperparameters[hp]["values"],
                   default=hyperparameters[hp]["default"])
 
-    return hp
+    return hp_set
