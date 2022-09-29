@@ -84,7 +84,7 @@ jobs:
         cat pipeline/configs.py
 
     - name: 'Create TFX Training Pipeline with New Image'
-      if: ${{ github.event.inputs.buildImage }} == 'true'
+      if: ${{ github.event.inputs.buildImage }} == true
       working-directory: 'advanced_part2'
       env:
         FULL_RES_DATA: ${{ github.event.inputs.fullResolutionData }}
@@ -96,7 +96,7 @@ jobs:
           --build-image
 
     - name: 'Create TFX Training Pipeline without New Image'
-      if: ${{ github.event.inputs.buildImage }} == 'false'
+      if: ${{ github.event.inputs.buildImage }} == false
       working-directory: 'advanced_part2'
       env:
         FULL_RES_DATA: ${{ github.event.inputs.fullResolutionData }}
