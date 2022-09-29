@@ -34,6 +34,18 @@ PREPROCESSING_FN = "modules.preprocessing.preprocessing_fn"
 EXAMPLE_GEN_BEAM_ARGS = None
 TRANSFORM_BEAM_ARGS = None
 
+TRAIN_BATCH_SIZE = 32
+EVAL_BATCH_SIZE = 32
+TRAIN_LENGTH = 1034
+EVAL_LENGTH = 128
+
+HYPER_PARAMETERS = {
+    "learning_rate": {
+        "values": [1e-3, 1e-2],
+        "default": 1e-3
+    },
+}
+
 EVAL_CONFIGS = tfma.EvalConfig(
     model_specs=[
         tfma.ModelSpec(
@@ -163,6 +175,7 @@ GCP_AI_PLATFORM_TUNER_ARGS = {
         PIPELINE_ROOT, "trials"
     ),
     "use_gpu": True,
+    "hyperparameters": HYPER_PARAMETERS
 }
 
 GCP_AI_PLATFORM_SERVING_ARGS = {

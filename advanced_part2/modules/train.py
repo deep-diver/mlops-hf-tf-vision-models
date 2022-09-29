@@ -18,6 +18,13 @@ from .utils import INFO
 
 
 def run_fn(fn_args: FnArgs):
+    custom_config = fn_args.custom_config
+    epochs = EPOCHS
+
+    if custom_config is not None:
+        if "is_local" in custom_config:
+            epochs = 1
+
     tf_transform_output = tft.TFTransformOutput(fn_args.transform_output)
 
     train_dataset = input_fn(
@@ -45,7 +52,7 @@ def run_fn(fn_args: FnArgs):
         steps_per_epoch=TRAIN_LENGTH // TRAIN_BATCH_SIZE,
         validation_data=eval_dataset,
         validation_steps=EVAL_LENGTH // TRAIN_BATCH_SIZE,
-        epochs=EPOCHS,
+        epochs=epochs,
     )
 
     model.save(
