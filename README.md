@@ -28,7 +28,12 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
     <img height="300px" src="https://i.ibb.co/F0hC9fF/Screen-Shot-2022-09-29-at-12-34-41-AM.png"/>
   </p>
 
-- [X] **Advanced Part 2**: as the fourth step, we show how to extend the ML pipeline from the third step by adding one more additional component, `Tuner`. This component is responsible for running a set of experiments with different sets of hyperparameters with fewer epochs, and the found best hyperparameter combination will be passed to the `Trainer`, and `Trainer` will train the model longer time with that hyperparameter combinations as the starting point.
+- [X] **Advanced Part 2** ( [![CI / Advanced Part2](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-advanced-2.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-advanced-2.yml) [![CD / Advanced Part2](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-advanced-2.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-advanced-2.yml) )
+  - as the fourth step, we show how to extend the ML pipeline from the third step by adding one more additional component, `Tuner`. This component is responsible for running a set of experiments with different sets of hyperparameters with fewer epochs, and the found best hyperparameter combination will be passed to the `Trainer`, and `Trainer` will train the model longer time with that hyperparameter combinations as the starting point.
+
+  <p align="center">
+    <img height="300px" src="https://i.ibb.co/RDFDzLK/advanced-part2.png"/>
+  </p>
 
 - [ ] **🤗 Hub Integration**: in this optional step, we show how to use custom TFX components for 🤗 Hub. In particular, we use `HFModelPusher` to push currently trained model to 🤗 Model Hub and `HFSpacePusher` to automatically deploy Gradio application to 🤗 Space Hub.
 
