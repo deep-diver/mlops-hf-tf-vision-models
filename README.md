@@ -3,7 +3,7 @@
 # MLOps for Vision Models (TensorFlow) from 🤗 Transformers with TensorFlow Extended (TFX)
 
 <p align="center">
-  <img height="500px" src="https://i.ibb.co/sWQtjRf/front-matter.png"/>
+  <img height="500px" src="https://i.ibb.co/fr9DBMb/2022-09-30-5-16-28.png"/>
 </p>
 
 This repository shows how to build Machine Learning pipeline for a vision model (TensorFlow) from 🤗 Transformers using the TensorFlow Ecosystem. In particular, we use TensorFlow Extended(TFX), and there are TensorFlow Data Validation(TFDV), Transform(TFT), Model Analysis(TFMA), and Serving(TF Serving) besides TensorFlow itself internally involved.
