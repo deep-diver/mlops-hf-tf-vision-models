@@ -2,6 +2,10 @@
 
 # MLOps for Vision Models (TensorFlow) from 🤗 Transformers with TensorFlow Extended (TFX)
 
+<p align="center">
+  <img height="500px" src="https://i.ibb.co/sWQtjRf/front-matter.png"/>
+</p>
+
 This repository shows how to build Machine Learning pipeline for a vision model (TensorFlow) from 🤗 Transformers using the TensorFlow Ecosystem. In particular, we use TensorFlow Extended(TFX), and there are TensorFlow Data Validation(TFDV), Transform(TFT), Model Analysis(TFMA), and Serving(TF Serving) besides TensorFlow itself internally involved.
 
 NOTE: This is a follow-up projects of "[Deploying Vision Models (TensorFlow) from 🤗 Transformers](https://github.com/sayakpaul/deploy-hf-tf-vision-models)" which shows how to deploy ViT model locally, on kubernetes, and on a fully managed service Vertex AI.
