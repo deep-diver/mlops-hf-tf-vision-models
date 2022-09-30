@@ -19,7 +19,6 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
   
   <p align="center">
     <img height="300px" src="https://i.ibb.co/pKh3y53/intermediate.png"/>
-    https://i.ibb.co/8mBmkY9/cache.png
   </p>
 
 - [X] **Advanced Part 1** ( [![CI / Advanced Part1](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-advanced-1.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-advanced-1.yml) [![CD / Advanced Part1](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-advanced-1.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-advanced-1.yml) )
