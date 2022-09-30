@@ -19,6 +19,7 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
   
   <p align="center">
     <img height="300px" src="https://i.ibb.co/pKh3y53/intermediate.png"/>
+    https://i.ibb.co/8mBmkY9/cache.png
   </p>
 
 - [X] **Advanced Part 1** ( [![CI / Advanced Part1](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-advanced-1.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/ci-advanced-1.yml) [![CD / Advanced Part1](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-advanced-1.yml/badge.svg)](https://github.com/deep-diver/mlops-hf-tf-vision-models/actions/workflows/cd-advanced-1.yml) )
@@ -33,6 +34,16 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
 
   <p align="center">
     <img height="300px" src="https://i.ibb.co/RDFDzLK/advanced-part2.png"/>
+    <p align="center" style="font-family:sans-serif; font-style:italic;">
+      without cache | initial run
+    </p>
+  </p>
+
+  <p align="center">
+    <img height="300px" src="https://i.ibb.co/09d4W24/cache.png"/>
+    <p align="center" style="font-family:sans-serif; font-style:italic;">
+      with cache | second run | change hyperparameters
+    </p>
   </p>
 
 - [ ] **🤗 Hub Integration**: in this optional step, we show how to use custom TFX components for 🤗 Hub. In particular, we use `HFModelPusher` to push currently trained model to 🤗 Model Hub and `HFSpacePusher` to automatically deploy Gradio application to 🤗 Space Hub.

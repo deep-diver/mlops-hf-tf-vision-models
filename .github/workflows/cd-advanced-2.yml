@@ -22,6 +22,11 @@ on:
         required: true
         type: boolean
         default: false
+      buildImage:
+        description: 'new image build option'
+        required: true
+        type: boolean
+        default: false
     
 jobs:
   cd:
@@ -78,7 +83,8 @@ jobs:
         mv pipeline/configs_tmp.py pipeline/configs.py
         cat pipeline/configs.py
 
-    - name: 'Create TFX Training Pipeline'
+    - name: 'Create TFX Training Pipeline with New Image'
+      if: ${{ github.event.inputs.buildImage == 'true'}}
       working-directory: 'advanced_part2'
       env:
         FULL_RES_DATA: ${{ github.event.inputs.fullResolutionData }}
@@ -88,6 +94,17 @@ jobs:
           --pipeline-path kubeflow_runner.py \
           --engine vertex \
           --build-image
+
+    - name: 'Create TFX Training Pipeline without New Image'
+      if: ${{ github.event.inputs.buildImage == 'false'}}
+      working-directory: 'advanced_part2'
+      env:
+        FULL_RES_DATA: ${{ github.event.inputs.fullResolutionData }}
+      run: |
+        FULL_RES_DATA=${{ env.FULL_RES_DATA }} \
+        tfx pipeline create \
+          --pipeline-path kubeflow_runner.py \
+          --engine vertex 
 
     - name: 'Compile TFX Training Pipeline'
       working-directory: 'advanced_part2'
