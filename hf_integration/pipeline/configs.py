@@ -4,6 +4,8 @@ import tfx.extensions.google_cloud_ai_platform.constants as vertex_const
 import tfx.extensions.google_cloud_ai_platform.trainer.executor as vertex_training_const
 import tfx.extensions.google_cloud_ai_platform.tuner.executor as vertex_tuner_const
 
+from pipeline.components.HFPusher.common import HFSpaceConfig
+
 PIPELINE_NAME = "vit-e2e-pipeline-hf-integration"
 
 try:
@@ -188,4 +190,14 @@ GCP_AI_PLATFORM_SERVING_ARGS = {
         "min_replica_count": 1,
         "max_replica_count": 1,
     },
+}
+
+HF_PUSHER_ARGS = {
+    "username": "chansung",
+    "access_token": "$HF_ACCESS_TOKEN",
+    "repo_name": PIPELINE_NAME,
+    "space_config": HFSpaceConfig(
+        app_path="app.gradio",
+        repo_name=PIPELINE_NAME,
+    ),
 }

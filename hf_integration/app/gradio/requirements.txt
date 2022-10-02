@@ -1,4 +1,3 @@
+tensorflow
 transformers
-pillow
-keras-tuner
 huggingface-hub

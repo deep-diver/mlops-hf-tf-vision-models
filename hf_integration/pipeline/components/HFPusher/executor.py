@@ -23,7 +23,7 @@ from tfx import types
 from tfx.components.pusher import executor as tfx_pusher_executor
 from tfx.types import artifact_utils, standard_component_specs
 
-from pipeline.components.pusher.HFModelPusher import runner
+from pipeline.components.HFPusher import runner
 
 _USERNAME_KEY = "app_name"
 _ACCESS_TOKEN_KEY = "access_token"
@@ -88,8 +88,6 @@ class Executor(tfx_pusher_executor.Executor):
                 he values represents the actual placeholders to replace in the f
                 iles under the app_path. There are currently two predefined keys,
                 and if placeholders is set to None, the default values will be used.
-        Raises:
-          RuntimeError: ???
         """
         self._log_startup(input_dict, output_dict, exec_properties)
 
@@ -102,7 +100,7 @@ class Executor(tfx_pusher_executor.Executor):
         model_path = self.GetModelPath(input_dict)
         model_version_name = f"v{int(time.time())}"
 
-        pushed_model_path = runner.deploy_model_for_hf_hub(
+        pushed_properties = runner.deploy_model_for_hf_hub(
             username=exec_properties.get(_USERNAME_KEY, "[DEFAULT]"),
             access_token=exec_properties.get(_ACCESS_TOKEN_KEY),
             repo_name=exec_properties.get(_REPO_NAME_KEY),
@@ -111,4 +109,9 @@ class Executor(tfx_pusher_executor.Executor):
             model_version=model_version_name,
         )
 
-        self._MarkPushed(model_push, pushed_destination=pushed_model_path)
+        self._MarkPushed(model_push, pushed_destination=pushed_properties['repo_url'])
+        for key in pushed_properties:
+          value = pushed_properties[key]
+
+          if key != 'repo_url':
+            model_push.set_string_custom_property(key, value)

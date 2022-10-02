@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Firebase Publisher runner module.
+"""HuggingFace Pusher runner module.
 This module handles the workflow to publish
-machine learning model to Firebase ML.
+machine learning model to HuggingFace Hub.
 """
 import tempfile
 from typing import Dict, Optional
@@ -27,7 +27,7 @@ from huggingface_hub import Repository
 from huggingface_hub import HfApi
 from requests.exceptions import HTTPError
 
-from pipeline.components.pusher.HFModelPusher.components import HFSpaceConfig
+from pipeline.components.HFPusher.common import HFSpaceConfig
 
 _MODEL_REPO_KEY = "MODEL_REPO_ID"
 _MODEL_URL_KEY = "MODEL_REPO_URL"
@@ -147,6 +147,7 @@ def deploy_model_for_hf_hub(
         branch=model_version,
     )
     logging.info("updates are pushed to the remote repository")
+
     outputs["repo_id"] = repo_id
     outputs["branch"] = model_version
     outputs["commit_id"] = f"{repository.git_head_hash()}"

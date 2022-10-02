@@ -26,6 +26,9 @@ from tfx.dsl.experimental.latest_blessed_model_resolver import (
     LatestBlessedModelResolver,
 )
 
+from pipeline.components.HFPusher.component import HFPusher
+from pipeline.components.HFPusher.component import HFSpaceConfig
+
 
 def create_pipeline(
     pipeline_name: Text,
@@ -115,6 +118,16 @@ def create_pipeline(
     }
     pusher = Pusher(**pusher_args)  # pylint: disable=unused-variable
     components.append(pusher)
+
+    # pusher_args = {
+    #     "model": trainer.outputs["model"],
+    #     "model_blessing": evaluator.outputs["blessing"],
+    #     "username": "chansung",
+    #     "access_token": "<REPLACE_WITH_YOUR_OWN_TOKEN>",
+    #     "repo_name": "vit-e2e-pipeline-hf-integration",
+    # }
+    # hf_pusher = HFPusher(**pusher_args)
+    # components.append(hf_pusher)
 
     return pipeline.Pipeline(
         pipeline_name=pipeline_name,
