@@ -3,3 +3,4 @@ kfp
 transformers
 pillow
 keras-tuner
+huggingface-hub
