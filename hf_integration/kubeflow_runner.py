@@ -36,6 +36,7 @@ def run():
             ai_platform_serving_args=configs.GCP_AI_PLATFORM_SERVING_ARGS,
             example_gen_beam_args=configs.EXAMPLE_GEN_BEAM_ARGS,
             transform_beam_args=configs.TRANSFORM_BEAM_ARGS,
+            hf_pusher_args=configs.HF_PUSHER_ARGS,
         )
     )
 
