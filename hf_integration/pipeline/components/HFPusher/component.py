@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict, Any, Optional
 
 from tfx import types
 from tfx.dsl.components.base import base_component, executor_spec
@@ -6,7 +6,7 @@ from tfx.types import standard_artifacts
 from tfx.types.component_spec import ChannelParameter, ExecutionParameter
 
 from pipeline.components.HFPusher import executor
-from pipeline.components.HFPusher.common import HFSpaceConfig
+# from pipeline.components.HFPusher.common import HFSpaceConfig
 
 MODEL_KEY = "model"
 PUSHED_MODEL_KEY = "pushed_model"
@@ -20,7 +20,7 @@ class HFPusherSpec(types.ComponentSpec):
         "username": ExecutionParameter(type=str),
         "access_token": ExecutionParameter(type=str),
         "repo_name": ExecutionParameter(type=str),
-        "space_config": ExecutionParameter(type=HFSpaceConfig, optional=True),
+        "space_config": ExecutionParameter(type=Dict, optional=True),
     }
     INPUTS = {
         MODEL_KEY: ChannelParameter(type=standard_artifacts.Model, optional=True),
@@ -44,8 +44,8 @@ class HFPusher(base_component.BaseComponent):
         username: str,
         access_token: str,
         repo_name: str,
-        space_config: Optional[HFSpaceConfig] = None,
-        model: Optional[types.Channel] = None,        
+        space_config: Optional[Dict[str, Any]] = None,
+        model: Optional[types.Channel] = None,
         model_blessing: Optional[types.Channel] = None,
     ):
         """Construct a Pusher component."""

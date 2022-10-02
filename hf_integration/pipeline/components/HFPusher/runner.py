@@ -17,7 +17,7 @@ This module handles the workflow to publish
 machine learning model to HuggingFace Hub.
 """
 import tempfile
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 import tensorflow as tf
 from absl import logging
@@ -27,7 +27,7 @@ from huggingface_hub import Repository
 from huggingface_hub import HfApi
 from requests.exceptions import HTTPError
 
-from pipeline.components.HFPusher.common import HFSpaceConfig
+# from pipeline.components.HFPusher.common import HFSpaceConfig
 
 _MODEL_REPO_KEY = "MODEL_REPO_ID"
 _MODEL_URL_KEY = "MODEL_REPO_URL"
@@ -116,7 +116,7 @@ def deploy_model_for_hf_hub(
     repo_name: str,
     model_path: str,
     model_version: str,
-    space_config: Optional[HFSpaceConfig] = None,
+    space_config: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, str]:
     outputs = {}
 
@@ -159,14 +159,14 @@ def deploy_model_for_hf_hub(
 
         repo_url = f"{repo_url_prefix}/spaces/{repo_id}"
 
-        app_path = space_config.app_path
+        app_path = space_config["app_path"]
         app_path = app_path.replace(".", "/")
 
         _create_remote_repo(
             access_token=access_token,
             repo_id=repo_id,
             repo_type="space",
-            space_sdk=space_config.space_sdk,
+            space_sdk=space_config["space_sdk"] if "space_sdk" in space_config else "gradio",
         )
 
         tmp_dir = tmp_dir + "_space"
@@ -178,7 +178,7 @@ def deploy_model_for_hf_hub(
 
         _replace_placeholders(
             target_dir=tmp_dir,
-            placeholders=space_config.placeholders,
+            placeholders=space_config["placeholders"] if "placeholders" in space_config else None,
             model_repo_id=model_repo_id,
             model_repo_url=model_repo_url,
             model_version=model_version,

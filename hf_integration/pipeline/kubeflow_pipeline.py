@@ -32,7 +32,7 @@ from tfx.dsl.experimental.latest_blessed_model_resolver import (
 )
 
 from pipeline.components.HFPusher.component import HFPusher
-from pipeline.components.HFPusher.component import HFSpaceConfig
+# from pipeline.components.HFPusher.component import HFSpaceConfig
 
 def create_pipeline(
     pipeline_name: Text,
