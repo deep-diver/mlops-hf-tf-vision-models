@@ -17,7 +17,7 @@ This module handles the workflow to publish
 machine learning model to HuggingFace Hub.
 """
 import tempfile
-from typing import Any, Dict, Optional
+from typing import Text, Any, Dict, Optional
 
 import tensorflow as tf
 from absl import logging
@@ -116,7 +116,7 @@ def deploy_model_for_hf_hub(
     repo_name: str,
     model_path: str,
     model_version: str,
-    space_config: Optional[Dict] = None,
+    space_config: Optional[Dict[Text, Any]] = None,
 ) -> Dict[str, str]:
     outputs = {}
 
