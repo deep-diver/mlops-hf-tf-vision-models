@@ -1,4 +1,4 @@
-name: CD / Advanced Part2
+name: CD / HF-Integration
 
 on:
   workflow_dispatch:
