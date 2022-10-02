@@ -37,7 +37,12 @@ We will show how to build ML pipeline with TFX in a step-by-step manner:
 
   ![](https://i.ibb.co/xmwbw7W/advanced2.png)
 
-- [ ] **🤗 Hub Integration**: in this optional step, we show how to use custom TFX components for 🤗 Hub. In particular, we use `HFModelPusher` to push currently trained model to 🤗 Model Hub and `HFSpacePusher` to automatically deploy Gradio application to 🤗 Space Hub.
+- [ ] **🤗 Hub Integration**
+  - in this optional step, we show how to use custom TFX components for 🤗 Hub. In particular, we use `HFModelPusher` to push currently trained model to 🤗 Model Hub and `HFSpacePusher` to automatically deploy Gradio application to 🤗 Space Hub.
+  
+  <p align="center">
+    <img height="400px" src="https://i.ibb.co/1zZYhVR/hf-integration.png"/>
+  </p> 
 
 ## Acknowledgements
 
