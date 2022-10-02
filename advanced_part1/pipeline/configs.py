@@ -1,4 +1,4 @@
-import os 
+import os
 import tensorflow_model_analysis as tfma
 import tfx.extensions.google_cloud_ai_platform.constants as vertex_const
 import tfx.extensions.google_cloud_ai_platform.trainer.executor as vertex_training_const

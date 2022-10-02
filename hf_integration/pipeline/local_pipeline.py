@@ -22,7 +22,10 @@ from tfx.types import Channel
 from tfx.types.standard_artifacts import Model
 from tfx.types.standard_artifacts import ModelBlessing
 from tfx.dsl.components.common import resolver
-from tfx.dsl.experimental.latest_blessed_model_resolver import LatestBlessedModelResolver
+from tfx.dsl.experimental.latest_blessed_model_resolver import (
+    LatestBlessedModelResolver,
+)
+
 
 def create_pipeline(
     pipeline_name: Text,
@@ -71,9 +74,7 @@ def create_pipeline(
         examples=transform.outputs["transformed_examples"],
         schema=schema_gen.outputs["schema"],
         transform_graph=transform.outputs["transform_graph"],
-        custom_config={
-            "hyperparameters": hyperparameters
-        }
+        custom_config={"hyperparameters": hyperparameters},
     )
     components.append(tuner)
 
@@ -83,9 +84,7 @@ def create_pipeline(
         "transform_graph": transform.outputs["transform_graph"],
         "schema": schema_gen.outputs["schema"],
         "hyperparameters": tuner.outputs["best_hyperparameters"],
-        "custom_config": {
-            "is_local": True
-        }
+        "custom_config": {"is_local": True},
     }
     trainer = Trainer(**trainer_args)
     components.append(trainer)
@@ -107,7 +106,7 @@ def create_pipeline(
 
     pusher_args = {
         "model": trainer.outputs["model"],
-        "model_blessing": evaluator.outputs['blessing'],
+        "model_blessing": evaluator.outputs["blessing"],
         "push_destination": tfx.proto.PushDestination(
             filesystem=tfx.proto.PushDestination.Filesystem(
                 base_directory=serving_model_dir

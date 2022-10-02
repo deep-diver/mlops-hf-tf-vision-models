@@ -27,7 +27,10 @@ from tfx.types import Channel
 from tfx.types.standard_artifacts import Model
 from tfx.types.standard_artifacts import ModelBlessing
 from tfx.dsl.components.common import resolver
-from tfx.dsl.experimental.latest_blessed_model_resolver import LatestBlessedModelResolver
+from tfx.dsl.experimental.latest_blessed_model_resolver import (
+    LatestBlessedModelResolver,
+)
+
 
 def create_pipeline(
     pipeline_name: Text,
@@ -116,7 +119,7 @@ def create_pipeline(
 
     pusher_args = {
         "model": trainer.outputs["model"],
-        "model_blessing": evaluator.outputs['blessing'],
+        "model_blessing": evaluator.outputs["blessing"],
         "custom_config": ai_platform_serving_args,
     }
     pusher = VertexPusher(**pusher_args)  # pylint: disable=unused-variable

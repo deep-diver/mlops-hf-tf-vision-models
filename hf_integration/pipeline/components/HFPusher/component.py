@@ -13,6 +13,7 @@ MODEL_KEY = "model"
 PUSHED_MODEL_KEY = "pushed_model"
 MODEL_BLESSING_KEY = "model_blessing"
 
+
 class HFSpaceConfig:
     def __init__(
         self,
@@ -30,24 +31,25 @@ class HFSpaceConfig:
         self.placeholders = placeholders
         self.repo_name = repo_name
 
-class HFPusherSpec(types.ComponentSpec):
-  """ComponentSpec for TFX HFPusher Component."""
 
-  PARAMETERS = {
-      "username": ExecutionParameter(type=str),
-      "access_token": ExecutionParameter(type=str),
-      "repo_name": ExecutionParameter(type=str),
-      "space_config": ExecutionParameter(type=HFSpaceConfig, optional=True),
-  }
-  INPUTS = {
-      MODEL_KEY:
-      ChannelParameter(type=standard_artifacts.Model),
-      MODEL_BLESSING_KEY:
-      ChannelParameter(type=standard_artifacts.ModelBlessing, optional=True),
-  }
-  OUTPUTS = {
-      PUSHED_MODEL_KEY: ChannelParameter(type=standard_artifacts.PushedModel),
-  }
+class HFPusherSpec(types.ComponentSpec):
+    """ComponentSpec for TFX HFPusher Component."""
+
+    PARAMETERS = {
+        "username": ExecutionParameter(type=str),
+        "access_token": ExecutionParameter(type=str),
+        "repo_name": ExecutionParameter(type=str),
+        "space_config": ExecutionParameter(type=HFSpaceConfig, optional=True),
+    }
+    INPUTS = {
+        MODEL_KEY: ChannelParameter(type=standard_artifacts.Model),
+        MODEL_BLESSING_KEY: ChannelParameter(
+            type=standard_artifacts.ModelBlessing, optional=True
+        ),
+    }
+    OUTPUTS = {
+        PUSHED_MODEL_KEY: ChannelParameter(type=standard_artifacts.PushedModel),
+    }
 
 
 class HFPusher(base_component.BaseComponent):
@@ -64,18 +66,18 @@ class HFPusher(base_component.BaseComponent):
         space_config: Optional[HFSpaceConfig] = None,
         model_blessing: Optional[types.Channel] = None,
     ):
-        """Construct a Pusher component.
-
-        """
+        """Construct a Pusher component."""
 
         pushed_model = types.Channel(type=standard_artifacts.PushedModel)
 
-        spec = HFPusherSpec(username=username,
-                            access_token=access_token,
-                            repo_name=repo_name,
-                            space_config=space_config,
-                            model=model,
-                            model_blessing=model_blessing,
-                            pushed_model=pushed_model)
+        spec = HFPusherSpec(
+            username=username,
+            access_token=access_token,
+            repo_name=repo_name,
+            space_config=space_config,
+            model=model,
+            model_blessing=model_blessing,
+            pushed_model=pushed_model,
+        )
 
         super().__init__(spec=spec)

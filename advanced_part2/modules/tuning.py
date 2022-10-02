@@ -10,8 +10,9 @@ from .hyperparams import TRAIN_BATCH_SIZE, EVAL_BATCH_SIZE
 from .hyperparams import TRAIN_LENGTH, EVAL_LENGTH
 from .hyperparams import get_hyperparameters
 
+
 def tuner_fn(fn_args: FnArgs) -> TunerFnResult:
-    hyperparameters = fn_args.custom_config['hyperparameters']
+    hyperparameters = fn_args.custom_config["hyperparameters"]
 
     tuner = keras_tuner.RandomSearch(
         build_model,

@@ -44,7 +44,7 @@ def run_fn(fn_args: FnArgs):
     )
 
     hparams = keras_tuner.HyperParameters.from_config(fn_args.hyperparameters)
-    INFO(f"HyperParameters for training: {hparams.get_config()}")    
+    INFO(f"HyperParameters for training: {hparams.get_config()}")
     model = build_model(hparams)
 
     model.fit(

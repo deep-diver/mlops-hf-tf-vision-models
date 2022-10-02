@@ -1,4 +1,4 @@
-import os 
+import os
 import tensorflow_model_analysis as tfma
 import tfx.extensions.google_cloud_ai_platform.constants as vertex_const
 import tfx.extensions.google_cloud_ai_platform.trainer.executor as vertex_training_const
@@ -40,10 +40,7 @@ TRAIN_LENGTH = 1034
 EVAL_LENGTH = 128
 
 HYPER_PARAMETERS = {
-    "learning_rate": {
-        "values": [1e-3, 1e-2, 1e-1],
-        "default": 1e-3
-    },
+    "learning_rate": {"values": [1e-3, 1e-2, 1e-1], "default": 1e-3},
 }
 
 EVAL_CONFIGS = tfma.EvalConfig(
@@ -175,7 +172,7 @@ GCP_AI_PLATFORM_TUNER_ARGS = {
         PIPELINE_ROOT, "trials"
     ),
     "use_gpu": True,
-    "hyperparameters": HYPER_PARAMETERS
+    "hyperparameters": HYPER_PARAMETERS,
 }
 
 GCP_AI_PLATFORM_SERVING_ARGS = {
