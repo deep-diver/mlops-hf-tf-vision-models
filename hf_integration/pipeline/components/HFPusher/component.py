@@ -1,4 +1,4 @@
-from typing import Dict, Any, Optional
+from typing import Text, Dict, Any, Optional
 
 from tfx import types
 from tfx.dsl.components.base import base_component, executor_spec
@@ -44,7 +44,7 @@ class HFPusher(base_component.BaseComponent):
         username: str,
         access_token: str,
         repo_name: str,
-        space_config: Optional[Dict[str, Any]] = None,
+        space_config: Optional[Dict] = None,
         model: Optional[types.Channel] = None,
         model_blessing: Optional[types.Channel] = None,
     ):

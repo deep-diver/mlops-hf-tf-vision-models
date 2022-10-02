@@ -116,7 +116,7 @@ def deploy_model_for_hf_hub(
     repo_name: str,
     model_path: str,
     model_version: str,
-    space_config: Optional[Dict[str, Any]] = None,
+    space_config: Optional[Dict] = None,
 ) -> Dict[str, str]:
     outputs = {}
 
