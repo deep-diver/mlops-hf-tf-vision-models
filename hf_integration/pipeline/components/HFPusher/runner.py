@@ -91,6 +91,7 @@ def _replace_placeholders(
 def _create_remote_repo(
     access_token: str, repo_id: str, repo_type: str = "model", space_sdk: str = None
 ):
+    logging.info(f"repo_id: {repo_id}")
     try:
         HfApi().create_repo(
             token=access_token,
