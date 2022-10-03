@@ -25,9 +25,9 @@ from tfx.types import artifact_utils, standard_component_specs
 
 from pipeline.components.HFPusher import runner
 
-_USERNAME_KEY = "app_name"
+_USERNAME_KEY = "username"
 _ACCESS_TOKEN_KEY = "access_token"
-_REPO_NAME_KEY = "storage_bucket"
+_REPO_NAME_KEY = "repo_name"
 _SPACE_CONFIG_KEY = "space_config"
 
 
@@ -114,4 +114,4 @@ class Executor(tfx_pusher_executor.Executor):
           value = pushed_properties[key]
 
           if key != 'repo_url':
-            model_push.set_string_custom_property(key, value)
+            model_push.set_string_custom_property(key, value)``
