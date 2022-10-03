@@ -201,7 +201,7 @@ def deploy_model_for_hf_hub(
             local_dir=tmp_dir, clone_from=repo_url, use_auth_token=access_token
         )
 
-        io_utils.copy_dir(app_path, tmp_dir)
+        _replace_files(app_path, tmp_dir)
 
         _replace_placeholders(
             target_dir=tmp_dir,
