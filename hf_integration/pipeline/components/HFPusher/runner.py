@@ -128,7 +128,7 @@ def deploy_model_for_hf_hub(
     _create_remote_repo(access_token=access_token, repo_id=repo_id)
     logging.info(f"remote repository at {repo_url} is prepared")
 
-    tmp_dir = tempfile.gettempdir()
+    tmp_dir = "tmp_hf_model"
     repository = Repository(
         local_dir=tmp_dir, clone_from=repo_url, use_auth_token=access_token
     )
