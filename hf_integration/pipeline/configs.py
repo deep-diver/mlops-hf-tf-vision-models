@@ -40,7 +40,7 @@ TRAIN_LENGTH = 1034
 EVAL_LENGTH = 128
 
 HYPER_PARAMETERS = {
-    "learning_rate": {"values": [1e-3, 1e-2, 1e-1], "default": 1e-3},
+    "learning_rate": {"values": [1e-4, 1e-3, 1e-2, 1e-1], "default": 1e-4},
 }
 
 EVAL_CONFIGS = tfma.EvalConfig(

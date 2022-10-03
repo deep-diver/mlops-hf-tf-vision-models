@@ -16,7 +16,6 @@
 This module handles the workflow to publish
 machine learning model to HuggingFace Hub.
 """
-import tempfile
 from typing import Text, Any, Dict, Optional
 
 import tensorflow as tf
@@ -187,7 +186,7 @@ def deploy_model_for_hf_hub(
 
         _push_to_remote_repo(
             repo=repository,
-            commit_msg=f"updload {model_version} model",
+            commit_msg=f"upload {model_version} model",
         )
 
         outputs["space_url"] = repo_url
