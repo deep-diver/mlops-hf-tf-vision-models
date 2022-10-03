@@ -101,9 +101,9 @@ class Executor(tfx_pusher_executor.Executor):
         model_version_name = f"v{int(time.time())}"
 
         pushed_properties = runner.deploy_model_for_hf_hub(
-            username=exec_properties.get(_USERNAME_KEY, "[DEFAULT]"),
-            access_token=exec_properties.get(_ACCESS_TOKEN_KEY),
-            repo_name=exec_properties.get(_REPO_NAME_KEY),
+            username=exec_properties.get(_USERNAME_KEY, None),
+            access_token=exec_properties.get(_ACCESS_TOKEN_KEY, None),
+            repo_name=exec_properties.get(_REPO_NAME_KEY, None),
             space_config=exec_properties.get(_SPACE_CONFIG_KEY, None),
             model_path=model_path,
             model_version=model_version_name,
@@ -114,4 +114,4 @@ class Executor(tfx_pusher_executor.Executor):
           value = pushed_properties[key]
 
           if key != 'repo_url':
-            model_push.set_string_custom_property(key, value)``
+            model_push.set_string_custom_property(key, value)
