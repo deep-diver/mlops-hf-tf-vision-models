@@ -109,6 +109,33 @@ def _push_to_remote_repo(repo: Repository, commit_msg: str, branch: str = "main"
     repo.git_commit(commit_message=commit_msg)
     repo.git_push(upstream=f"origin {branch}")
 
+def _replace_files(src_path, dst_path):
+  not_to_delete = [
+    '.gitattributes',
+    '.git'
+  ]
+
+  inside_root_dst_path = tf.io.gfile.listdir(dst_path)
+
+  for content_name in inside_root_dst_path:
+    content = f"{dst_path}/{content_name}"
+
+    if content_name not in not_to_delete:
+      if tf.io.gfile.isdir(content):
+        tf.io.gfile.rmtree(content)
+      else:
+        tf.io.gfile.remove(content)
+
+  inside_root_src_path = tf.io.gfile.listdir(src_path)
+
+  for content_name in inside_root_src_path:
+    content = f"{src_path}/{content_name}"
+    dst_content = f"{dst_path}/{content_name}"
+
+    if tf.io.gfile.isdir(content):
+      io_utils.copy_dir(content, dst_content)
+    else:
+      tf.io.gfile.copy(content, dst_content)
 
 def deploy_model_for_hf_hub(
     username: str,
@@ -136,7 +163,7 @@ def deploy_model_for_hf_hub(
         f"remote repository is cloned, and new branch {model_version} is created"
     )
 
-    io_utils.copy_dir(model_path, tmp_dir)
+    _replace_files(model_path, tmp_dir)
     logging.info(
         "current version of the model is copied to the cloned local repository"
     )
