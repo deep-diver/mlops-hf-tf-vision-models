@@ -16,6 +16,7 @@
 the workflow handler runner.deploy_model_for_hf_hub().
 """
 
+import ast
 import time
 from typing import Any, Dict, List
 
@@ -100,11 +101,15 @@ class Executor(tfx_pusher_executor.Executor):
         model_path = self.GetModelPath(input_dict)
         model_version_name = f"v{int(time.time())}"
 
+        space_config = exec_properties.get(_SPACE_CONFIG_KEY, None)
+        if space_config is not None:
+          space_config = ast.literal_eval(space_config)
+
         pushed_properties = runner.deploy_model_for_hf_hub(
             username=exec_properties.get(_USERNAME_KEY, None),
             access_token=exec_properties.get(_ACCESS_TOKEN_KEY, None),
             repo_name=exec_properties.get(_REPO_NAME_KEY, None),
-            space_config=exec_properties.get(_SPACE_CONFIG_KEY, None),
+            space_config=space_config,
             model_path=model_path,
             model_version=model_version_name,
         )
