@@ -201,15 +201,15 @@ def deploy_model_for_hf_hub(
             local_dir=tmp_dir, clone_from=repo_url, use_auth_token=access_token
         )
 
-        _replace_files(app_path, tmp_dir)
-
         _replace_placeholders(
-            target_dir=tmp_dir,
+            target_dir=app_path,
             placeholders=space_config["placeholders"] if "placeholders" in space_config else None,
             model_repo_id=model_repo_id,
             model_repo_url=model_repo_url,
             model_version=model_version,
         )
+
+        _replace_files(app_path, tmp_dir)
 
         _push_to_remote_repo(
             repo=repository,
