@@ -74,15 +74,15 @@ def _replace_placeholders(
 ):
     if placeholders is None:
         placeholders = {
-            _DEFAULT_MODEL_REPO_PLACEHOLDER_KEY: _MODEL_REPO_KEY,
-            _DEFAULT_MODEL_URL_PLACEHOLDER_KEY: _MODEL_URL_KEY,
-            _DEFAULT_MODEL_VERSION_PLACEHOLDER_KEY: _MODEL_VERSION_KEY,
+            _MODEL_REPO_KEY: _DEFAULT_MODEL_REPO_PLACEHOLDER_KEY,
+            _MODEL_URL_KEY: _DEFAULT_MODEL_URL_PLACEHOLDER_KEY,
+            _MODEL_VERSION_KEY: _DEFAULT_MODEL_VERSION_PLACEHOLDER_KEY,
         }
 
     placeholder_to_replace = {
-        placeholders[_DEFAULT_MODEL_REPO_PLACEHOLDER_KEY]: model_repo_id,
-        placeholders[_DEFAULT_MODEL_URL_PLACEHOLDER_KEY]: model_repo_url,
-        placeholders[_DEFAULT_MODEL_VERSION_PLACEHOLDER_KEY]: model_version,
+        placeholders[_MODEL_REPO_KEY]: model_repo_id,
+        placeholders[_MODEL_URL_KEY]: model_repo_url,
+        placeholders[_MODEL_VERSION_KEY]: model_version,
     }
     _replace_placeholders_in_files(target_dir, placeholder_to_replace)
 
@@ -201,15 +201,15 @@ def deploy_model_for_hf_hub(
             local_dir=tmp_dir, clone_from=repo_url, use_auth_token=access_token
         )
 
-        _replace_files(app_path, tmp_dir)
-
         _replace_placeholders(
-            target_dir=tmp_dir,
+            target_dir=app_path,
             placeholders=space_config["placeholders"] if "placeholders" in space_config else None,
             model_repo_id=model_repo_id,
             model_repo_url=model_repo_url,
             model_version=model_version,
         )
+
+        _replace_files(app_path, tmp_dir)
 
         _push_to_remote_repo(
             repo=repository,
