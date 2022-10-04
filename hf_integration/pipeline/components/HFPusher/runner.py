@@ -80,9 +80,9 @@ def _replace_placeholders(
         }
 
     placeholder_to_replace = {
-        placeholders[_MODEL_REPO_KEY]: "test_model",
-        placeholders[_MODEL_URL_KEY]: "test_url",
-        placeholders[_MODEL_VERSION_KEY]: "test_version",
+        placeholders[_MODEL_REPO_KEY]: model_repo_id,
+        placeholders[_MODEL_URL_KEY]: model_repo_url,
+        placeholders[_MODEL_VERSION_KEY]: model_version,
     }
     _replace_placeholders_in_files(target_dir, placeholder_to_replace)
 
