@@ -21,7 +21,10 @@ from tfx.types import Channel
 from tfx.types.standard_artifacts import Model
 from tfx.types.standard_artifacts import ModelBlessing
 from tfx.dsl.components.common import resolver
-from tfx.dsl.experimental.latest_blessed_model_resolver import LatestBlessedModelResolver
+from tfx.dsl.experimental.latest_blessed_model_resolver import (
+    LatestBlessedModelResolver,
+)
+
 
 def create_pipeline(
     pipeline_name: Text,
@@ -90,7 +93,7 @@ def create_pipeline(
 
     pusher_args = {
         "model": trainer.outputs["model"],
-        "model_blessing": evaluator.outputs['blessing'],
+        "model_blessing": evaluator.outputs["blessing"],
         "push_destination": tfx.proto.PushDestination(
             filesystem=tfx.proto.PushDestination.Filesystem(
                 base_directory=serving_model_dir

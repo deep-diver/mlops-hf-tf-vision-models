@@ -31,6 +31,8 @@ from tfx.dsl.experimental.latest_blessed_model_resolver import (
     LatestBlessedModelResolver,
 )
 
+from pipeline.components.HFPusher.component import HFPusher
+# from pipeline.components.HFPusher.component import HFSpaceConfig
 
 def create_pipeline(
     pipeline_name: Text,
@@ -46,6 +48,7 @@ def create_pipeline(
     ai_platform_serving_args: Optional[Dict[Text, Any]] = None,
     example_gen_beam_args: Optional[List] = None,
     transform_beam_args: Optional[List] = None,
+    hf_pusher_args: Optional[Dict[Text, Any]] = None,
 ) -> tfx.dsl.Pipeline:
     components = []
 
@@ -109,21 +112,26 @@ def create_pipeline(
     ).with_id("latest_blessed_model_resolver")
     components.append(model_resolver)
 
-    evaluator = Evaluator(
-        examples=example_gen.outputs["examples"],
-        model=trainer.outputs["model"],
-        baseline_model=model_resolver.outputs["model"],
-        eval_config=eval_configs,
-    )
-    components.append(evaluator)
+    # evaluator = Evaluator(
+    #     examples=example_gen.outputs["examples"],
+    #     model=trainer.outputs["model"],
+    #     baseline_model=model_resolver.outputs["model"],
+    #     eval_config=eval_configs,
+    # )
+    # components.append(evaluator)
 
-    pusher_args = {
-        "model": trainer.outputs["model"],
-        "model_blessing": evaluator.outputs["blessing"],
-        "custom_config": ai_platform_serving_args,
-    }
-    pusher = VertexPusher(**pusher_args)  # pylint: disable=unused-variable
-    components.append(pusher)
+    # pusher_args = {
+    #     "model": trainer.outputs["model"],
+    #     "model_blessing": evaluator.outputs["blessing"],
+    #     "custom_config": ai_platform_serving_args,
+    # }
+    # pusher = VertexPusher(**pusher_args)  # pylint: disable=unused-variable
+    # components.append(pusher)
+
+    hf_pusher_args['model'] = trainer.outputs["model"]
+    # hf_pusher_args['model_blessing'] = evaluator.outputs["blessing"]
+    hf_pusher = HFPusher(**hf_pusher_args)
+    components.append(hf_pusher)
 
     return pipeline.Pipeline(
         pipeline_name=pipeline_name,

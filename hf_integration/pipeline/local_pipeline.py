@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Text
+from typing import Dict, Optional, Text
 
 import tensorflow_model_analysis as tfma
 
@@ -11,17 +11,12 @@ from tfx.components import ImportExampleGen
 from tfx.components import StatisticsGen
 from tfx.components import ExampleValidator
 from tfx.components import Transform
+from tfx.components import Tuner
+from tfx.components import Trainer
 from tfx.components import Evaluator
-from tfx.extensions.google_cloud_ai_platform.trainer.component import (
-    Trainer as VertexTrainer,
-)
-from tfx.extensions.google_cloud_ai_platform.pusher.component import (
-    Pusher as VertexPusher,
-)
-from tfx.extensions.google_cloud_ai_platform.tuner.component import Tuner as VertexTuner
+from tfx.components import Pusher
 from tfx.orchestration import pipeline
 from tfx.proto import example_gen_pb2
-from tfx.proto import tuner_pb2
 
 from tfx.types import Channel
 from tfx.types.standard_artifacts import Model
@@ -31,6 +26,9 @@ from tfx.dsl.experimental.latest_blessed_model_resolver import (
     LatestBlessedModelResolver,
 )
 
+from pipeline.components.HFPusher.component import HFPusher
+# from pipeline.components.HFPusher.component import HFSpaceConfig
+
 
 def create_pipeline(
     pipeline_name: Text,
@@ -38,26 +36,20 @@ def create_pipeline(
     data_path: Text,
     schema_path: Text,
     modules: Dict[Text, Text],
+    hyperparameters: Dict[Text, Text],
     eval_configs: tfma.EvalConfig,
+    serving_model_dir: Text,
     metadata_connection_config: Optional[metadata_store_pb2.ConnectionConfig] = None,
-    ai_platform_training_args: Optional[Dict[Text, Text]] = None,
-    ai_platform_tuner_args: Optional[Dict[Text, Text]] = None,
-    tuner_args: tuner_pb2.TuneArgs = None,
-    ai_platform_serving_args: Optional[Dict[Text, Any]] = None,
-    example_gen_beam_args: Optional[List] = None,
-    transform_beam_args: Optional[List] = None,
 ) -> tfx.dsl.Pipeline:
     components = []
 
     input_config = example_gen_pb2.Input(
         splits=[
-            example_gen_pb2.Input.Split(name="train", pattern="train-*.tfrec"),
-            example_gen_pb2.Input.Split(name="eval", pattern="val-*.tfrec"),
+            example_gen_pb2.Input.Split(name="train", pattern="train-00-*.tfrec"),
+            example_gen_pb2.Input.Split(name="eval", pattern="val-00-*.tfrec"),
         ]
     )
     example_gen = ImportExampleGen(input_base=data_path, input_config=input_config)
-    if example_gen_beam_args is not None:
-        example_gen.with_beam_pipeline_args(example_gen_beam_args)
     components.append(example_gen)
 
     statistics_gen = StatisticsGen(examples=example_gen.outputs["examples"])
@@ -78,16 +70,14 @@ def create_pipeline(
         "preprocessing_fn": modules["preprocessing_fn"],
     }
     transform = Transform(**transform_args)
-    if transform_beam_args is not None:
-        transform.with_beam_pipeline_args(transform_beam_args)
     components.append(transform)
 
-    tuner = VertexTuner(
+    tuner = Tuner(
         tuner_fn=modules["tuner_fn"],
         examples=transform.outputs["transformed_examples"],
+        schema=schema_gen.outputs["schema"],
         transform_graph=transform.outputs["transform_graph"],
-        tune_args=tuner_args,
-        custom_config=ai_platform_tuner_args,
+        custom_config={"hyperparameters": hyperparameters},
     )
     components.append(tuner)
 
@@ -97,9 +87,9 @@ def create_pipeline(
         "transform_graph": transform.outputs["transform_graph"],
         "schema": schema_gen.outputs["schema"],
         "hyperparameters": tuner.outputs["best_hyperparameters"],
-        "custom_config": ai_platform_training_args,
+        "custom_config": {"is_local": True},
     }
-    trainer = VertexTrainer(**trainer_args)
+    trainer = Trainer(**trainer_args)
     components.append(trainer)
 
     model_resolver = resolver.Resolver(
@@ -120,15 +110,29 @@ def create_pipeline(
     pusher_args = {
         "model": trainer.outputs["model"],
         "model_blessing": evaluator.outputs["blessing"],
-        "custom_config": ai_platform_serving_args,
+        "push_destination": tfx.proto.PushDestination(
+            filesystem=tfx.proto.PushDestination.Filesystem(
+                base_directory=serving_model_dir
+            )
+        ),
     }
-    pusher = VertexPusher(**pusher_args)  # pylint: disable=unused-variable
+    pusher = Pusher(**pusher_args)  # pylint: disable=unused-variable
     components.append(pusher)
+
+    # pusher_args = {
+    #     "model": trainer.outputs["model"],
+    #     "model_blessing": evaluator.outputs["blessing"],
+    #     "username": "chansung",
+    #     "access_token": "<REPLACE_WITH_YOUR_OWN_TOKEN>",
+    #     "repo_name": "vit-e2e-pipeline-hf-integration",
+    # }
+    # hf_pusher = HFPusher(**pusher_args)
+    # components.append(hf_pusher)
 
     return pipeline.Pipeline(
         pipeline_name=pipeline_name,
         pipeline_root=pipeline_root,
         components=components,
-        enable_cache=True,
+        enable_cache=False,
         metadata_connection_config=metadata_connection_config,
     )

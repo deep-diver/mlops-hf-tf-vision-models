@@ -4,7 +4,7 @@ import tfx.extensions.google_cloud_ai_platform.constants as vertex_const
 import tfx.extensions.google_cloud_ai_platform.trainer.executor as vertex_training_const
 import tfx.extensions.google_cloud_ai_platform.tuner.executor as vertex_tuner_const
 
-PIPELINE_NAME = "vit-e2e-pipeline-advanced-part2"
+PIPELINE_NAME = "vit-e2e-pipeline-hf-integration"
 
 try:
     import google.auth  # pylint: disable=g-import-not-at-top  # pytype: disable=import-error
@@ -40,7 +40,7 @@ TRAIN_LENGTH = 1034
 EVAL_LENGTH = 128
 
 HYPER_PARAMETERS = {
-    "learning_rate": {"values": [1e-3, 1e-2, 1e-1], "default": 1e-3},
+    "learning_rate": {"values": [1e-4, 1e-3, 1e-2, 1e-1], "default": 1e-4},
 }
 
 EVAL_CONFIGS = tfma.EvalConfig(
@@ -188,4 +188,13 @@ GCP_AI_PLATFORM_SERVING_ARGS = {
         "min_replica_count": 1,
         "max_replica_count": 1,
     },
+}
+
+HF_PUSHER_ARGS = {
+    "username": "chansung",
+    "access_token": "$HF_ACCESS_TOKEN",
+    "repo_name": PIPELINE_NAME,
+    "space_config": {
+        "app_path": "app.gradio",
+    }
 }
