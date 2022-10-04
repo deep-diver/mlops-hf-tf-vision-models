@@ -74,15 +74,15 @@ def _replace_placeholders(
 ):
     if placeholders is None:
         placeholders = {
-            _DEFAULT_MODEL_REPO_PLACEHOLDER_KEY: _MODEL_REPO_KEY,
-            _DEFAULT_MODEL_URL_PLACEHOLDER_KEY: _MODEL_URL_KEY,
-            _DEFAULT_MODEL_VERSION_PLACEHOLDER_KEY: _MODEL_VERSION_KEY,
+            _MODEL_REPO_KEY: _DEFAULT_MODEL_REPO_PLACEHOLDER_KEY,
+            _MODEL_URL_KEY: _DEFAULT_MODEL_URL_PLACEHOLDER_KEY,
+            _MODEL_VERSION_KEY: _DEFAULT_MODEL_VERSION_PLACEHOLDER_KEY,
         }
 
     placeholder_to_replace = {
-        placeholders[_DEFAULT_MODEL_REPO_PLACEHOLDER_KEY]: model_repo_id,
-        placeholders[_DEFAULT_MODEL_URL_PLACEHOLDER_KEY]: model_repo_url,
-        placeholders[_DEFAULT_MODEL_VERSION_PLACEHOLDER_KEY]: model_version,
+        placeholders[_MODEL_REPO_KEY]: "test_model",
+        placeholders[_MODEL_URL_KEY]: "test_url",
+        placeholders[_MODEL_VERSION_KEY]: "test_version",
     }
     _replace_placeholders_in_files(target_dir, placeholder_to_replace)
 
