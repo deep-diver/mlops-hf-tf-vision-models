@@ -95,6 +95,8 @@ class Executor(tfx_pusher_executor.Executor):
         model_push = artifact_utils.get_single_instance(
             output_dict[standard_component_specs.PUSHED_MODEL_KEY]
         )
+
+        # if the model is not blessed
         if not self.CheckBlessing(input_dict):
             self._MarkNotPushed(model_push)
             return
@@ -103,7 +105,7 @@ class Executor(tfx_pusher_executor.Executor):
 
         space_config = exec_properties.get(_SPACE_CONFIG_KEY, None)
         if space_config is not None:
-          space_config = ast.literal_eval(space_config)
+            space_config = ast.literal_eval(space_config)
 
         pushed_properties = runner.deploy_model_for_hf_hub(
             username=exec_properties.get(_USERNAME_KEY, None),
@@ -114,9 +116,9 @@ class Executor(tfx_pusher_executor.Executor):
             model_version=model_version_name,
         )
 
-        self._MarkPushed(model_push, pushed_destination=pushed_properties['repo_url'])
+        self._MarkPushed(model_push, pushed_destination=pushed_properties["repo_url"])
         for key in pushed_properties:
-          value = pushed_properties[key]
+            value = pushed_properties[key]
 
-          if key != 'repo_url':
-            model_push.set_string_custom_property(key, value)
+            if key != "repo_url":
+                model_push.set_string_custom_property(key, value)
