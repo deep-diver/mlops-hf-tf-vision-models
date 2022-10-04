@@ -1,3 +1,4 @@
+import gradio as gr
 import numpy as np
 from PIL import Image
 import tensorflow as tf
@@ -50,3 +51,15 @@ def get_predictions(image: Image) -> tf.Tensor:
 
     confidences = {labels[i]: float(probs[0][i]) for i in range(3)}
     return confidences
+
+title = "Simple demo for a Image Classification of the Beans Dataset with HF ViT model"
+
+demo = gr.Interface(
+    get_predictions,
+    gr.inputs.Image(type="pil"),
+    gr.outputs.Label(num_top_classes=3),
+    allow_flagging="never",
+    title=title,
+)
+
+demo.launch(debug=True)   
